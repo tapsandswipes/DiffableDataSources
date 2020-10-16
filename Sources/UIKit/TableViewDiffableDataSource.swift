@@ -185,6 +185,16 @@ open class TableViewDiffableDataSource<SectionIdentifierType: Hashable, ItemIden
     open func tableView(_ tableView: UITableView, sectionForSectionIndexTitle _: String, at section: Int) -> Int {
         return section
     }
+    
+    /// Return list of section titles to display in section index view (e.g. "ABCD...Z#")
+    ///
+    /// - Parameters:
+    ///   - tableView: A table view instance managed by `self`.
+    ///
+    /// - Returns: An array with the strings to display in section index view or `nil`
+    open func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return nil
+    }
 }
 
 #endif
