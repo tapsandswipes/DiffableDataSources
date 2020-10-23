@@ -11,7 +11,11 @@ open class TableViewDiffableDataSource<SectionIdentifierType: Hashable, ItemIden
     public typealias CellProvider = (UITableView, IndexPath, ItemIdentifierType) -> UITableViewCell?
 
     /// The default animation to updating the views.
-    public var defaultRowAnimation: UITableView.RowAnimation = .automatic
+    public var defaultSectionAnimation: UITableView.RowAnimation = .automatic
+
+    public var defaultDeleteRowAnimation: UITableView.RowAnimation = .automatic
+    public var defaultInsertRowAnimation: UITableView.RowAnimation = .automatic
+    public var defaultReloadRowAnimation: UITableView.RowAnimation = .automatic
 
     private weak var tableView: UITableView?
     private let cellProvider: CellProvider
@@ -44,12 +48,19 @@ open class TableViewDiffableDataSource<SectionIdentifierType: Hashable, ItemIden
             view: tableView,
             animatingDifferences: animatingDifferences,
             performUpdates: { tableView, changeset, setSections in
-                tableView.reload(using: changeset, with: self.defaultRowAnimation, setData: setSections)
-        },
+                tableView.reload(using: changeset,
+                                 deleteSectionsAnimation: self.defaultSectionAnimation,
+                                 insertSectionsAnimation: self.defaultSectionAnimation,
+                                 reloadSectionsAnimation: self.defaultSectionAnimation,
+                                 deleteRowsAnimation: self.defaultDeleteRowAnimation,
+                                 insertRowsAnimation: self.defaultInsertRowAnimation,
+                                 reloadRowsAnimation: self.defaultReloadRowAnimation,
+                                 setData: setSections)
+            },
             completion: completion
         )
     }
-
+    
     /// Returns a new snapshot object of current state.
     ///
     /// - Returns: A new snapshot object of current state.
