@@ -78,6 +78,16 @@ open class TableViewDiffableDataSource<SectionIdentifierType: Hashable, ItemIden
         return core.itemIdentifier(for: indexPath)
     }
 
+    /// Returns a section identifier for given section index.
+    ///
+    /// - Parameters:
+    ///   - section: An index  for the section identifier.
+    ///
+    /// - Returns: A section identifier for given index.
+    public func sectionIdentifier(for section: Int) -> SectionIdentifierType? {
+        return core.sectionIdentifier(for: section)
+    }
+
     /// Returns an index path for given item identifier.
     ///
     /// - Parameters:

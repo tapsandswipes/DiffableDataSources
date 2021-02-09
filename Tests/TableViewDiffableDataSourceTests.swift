@@ -203,6 +203,25 @@ final class TableViewDiffableDataSourceTests: XCTestCase {
             false
         )
     }
+    
+    func testCanGetASectionIdentifier() {
+        let tableView = MockTableView()
+        let cell = UITableViewCell()
+        let dataSource = TableViewDiffableDataSource<Int, Int>(tableView: tableView) { _, _, _ in
+            cell
+        }
+        
+        var snapshot = DiffableDataSourceSnapshot<Int, Int>()
+        snapshot.appendSections([1, 2, 3])
+        snapshot.appendItems([0, 1, 2], toSection: 2)
+        dataSource.apply(snapshot)
+        
+        XCTAssertEqual(
+            dataSource.sectionIdentifier(for: 2),
+            2
+        )
+
+    }
 }
 
 final class MockTableView: UITableView {

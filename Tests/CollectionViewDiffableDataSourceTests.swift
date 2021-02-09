@@ -185,6 +185,24 @@ final class CollectionViewDiffableDataSourceTests: XCTestCase {
             false
         )
     }
+    
+    func testCanGetASectionIdentifier() {
+        let collectionView = MockCollectionView()
+        let cell = UICollectionViewCell()
+        let dataSource = CollectionViewDiffableDataSource<Int, Int>(collectionView: collectionView) { _, _, _ in
+            cell
+        }
+        
+        var snapshot = DiffableDataSourceSnapshot<Int, Int>()
+        snapshot.appendSections([1, 2, 3])
+        snapshot.appendItems([0, 1, 2], toSection: 1)
+        dataSource.apply(snapshot)
+        
+        XCTAssertEqual(
+            dataSource.sectionIdentifier(for: 1),
+            2
+        )
+    }
 }
 
 final class MockCollectionView: UICollectionView {

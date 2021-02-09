@@ -71,6 +71,14 @@ final class DiffableDataSourceCore<SectionIdentifierType: Hashable, ItemIdentifi
         return items[indexPath.item].differenceIdentifier
     }
 
+    func sectionIdentifier(for section: Int) -> SectionIdentifierType? {
+        guard sections.indices.contains(section) else {
+            return nil
+        }
+        
+        return sections[section].differenceIdentifier
+    }
+    
     func unsafeItemIdentifier(for indexPath: IndexPath, file: StaticString = #file, line: UInt = #line) -> ItemIdentifierType {
         guard let itemIdentifier = itemIdentifier(for: indexPath) else {
             universalError("Item not found at the specified index path(\(indexPath)).")

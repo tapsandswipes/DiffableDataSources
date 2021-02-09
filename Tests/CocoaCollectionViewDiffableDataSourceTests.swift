@@ -167,6 +167,24 @@ final class CocoaCollectionViewDiffableDataSourceTests: XCTestCase {
             item
         )
     }
+    
+    func testCanGetASectionIdentifier() {
+        let collectionView = MockCollectionView()
+        let item = NSCollectionViewItem()
+        let dataSource = CocoaCollectionViewDiffableDataSource<Int, Int>(collectionView: collectionView) { _, _, _ in
+            item
+        }
+        
+        var snapshot = DiffableDataSourceSnapshot<Int, Int>()
+        snapshot.appendSections([1, 2, 3])
+        snapshot.appendItems([0, 1, 2], toSection: 2)
+        dataSource.apply(snapshot)
+        
+        XCTAssertEqual(
+            dataSource.sectionIdentifier(for: 2),
+            3
+        )
+    }
 }
 
 final class MockCollectionView: NSCollectionView {
